@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Photobooth</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1 style="color: #ac4141">Welcome to Photobooth</h1>
+
+    <div id="video-section">
+      <div>
+        <video id="video" autoplay playsinline></video>
+        <div id="countdown"></div>
+        <button id="start-btn">Bắt đầu chụp</button>
+      </div>
+      <div id="captured-photos-first"></div>
+    </div>
+
+    <div id="container" style="display: none">
+      <div id="left-side">
+        <h3>Click để chọn 6 ảnh yêu thích:</h3>
+        <div id="captured-photos"></div>
+      </div>
+
+      <div id="right-side">
+        <div id="selected-photos">
+          <div class="photo-slot" data-filled="false"></div>
+          <div class="photo-slot" data-filled="false"></div>
+          <div class="photo-slot" data-filled="false"></div>
+          <div class="photo-slot" data-filled="false"></div>
+          <div class="photo-slot" data-filled="false"></div>
+          <div class="photo-slot" data-filled="false"></div>
+        </div>
+
+        <div id="background-options">
+          <input type="color" id="colorPicker" />
+
+          <div id="bg-image-options">
+            <img src="./image/bg1.jpg" class="bg-thumbnail" />
+            <img src="./image/bg2.jpg" class="bg-thumbnail" />
+            <img src="./image/bg3.jpg" class="bg-thumbnail" />
+            <img src="./image/bg4.jpg" class="bg-thumbnail" />
+            <img src="./image/bg5.jpg" class="bg-thumbnail" />
+            <img src="./image/bg6.jpg" class="bg-thumbnail" />
+            <img src="./image/bg7.jpg" class="bg-thumbnail" />
+            <img src="./image/bg8.jpg" class="bg-thumbnail" />
+            <img src="./image/bg9.jpg" class="bg-thumbnail" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <canvas id="canvas" width="640" height="480" style="display: none"></canvas>
+
+    <button id="download-pdf" style="display: none">Tải về PDF</button>
+
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- dom-to-image -->
+    <script src="https://cdn.jsdelivr.net/npm/dom-to-image@2.6.0/src/dom-to-image.min.js"></script>
+
+    <script src="./main.js"></script>
+  </body>
+</html>
