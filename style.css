@@ -6,8 +6,7 @@
 
 body {
   font-family: Arial, sans-serif;
-  margin: 20px;
-  background: url("./image/images.jpg") no-repeat center center;
+  background: url("./image/images.jpg") center center;
   background-size: cover;
 }
 
@@ -19,6 +18,33 @@ h1 {
 h3{
   margin: 10px 0 20px 5px;
 }
+
+#welcome-screen {
+  text-align: center;
+  margin-top: 100px;
+}
+
+#welcome-screen h1 {
+  font-size: 36px;
+  color: #ac4141;
+  margin-bottom: 20px;
+}
+
+#welcome-screen p {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+#welcome-screen button {
+  background-color: #8d576dff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 18px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
 
 #container {
   display: flex;
@@ -133,6 +159,7 @@ button:disabled {
   width: 60%;
   margin: 0 auto;
   gap: 20px;
+  margin-top: 80px;
 }
 
 #captured-photos-first {

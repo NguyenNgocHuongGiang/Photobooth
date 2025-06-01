@@ -82,9 +82,9 @@ function startShooting() {
 
 function finishShooting() {
   countdownEl.textContent = "Đã chụp xong!";
-  // videoSection.style.display = "none";
-  // container.style.display = "flex";
-  // downloadBtn.style.display = "block";
+  videoSection.style.display = "none";
+  container.style.display = "flex";
+  downloadBtn.style.display = "block";
 }
 
 function assignToSlot(dataUrl) {
@@ -151,6 +151,17 @@ document.getElementById("download-pdf").addEventListener("click", async () => {
 
   selectedPhotos.style.background = originalBg;
   selectedPhotos.style.backgroundImage = originalBgImg;
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const welcomeScreen = document.getElementById("welcome-screen");
+  const videoSection = document.getElementById("video-section");
+  const welcomeBtn = document.getElementById("welcome-start-btn");
+
+  welcomeBtn.addEventListener("click", () => {
+    welcomeScreen.style.display = "none";
+    videoSection.style.display = "flex"; // hoặc "block" tùy bố cục
+  });
 });
 
 

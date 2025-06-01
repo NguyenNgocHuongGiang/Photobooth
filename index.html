@@ -6,9 +6,13 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1 style="color: #ac4141">Welcome to Photobooth</h1>
+  <div id="welcome-screen">
+    <h1>Chào mừng đến với Photobooth</h1>
+    <p>Chúng tôi sẽ giúp bạn chụp những khoảnh khắc đẹp nhất.</p>
+    <button id="welcome-start-btn">Bắt đầu</button>
+  </div>
 
-    <div id="video-section">
+    <div id="video-section" style="display: none">
       <div>
         <video id="video" autoplay playsinline></video>
         <div id="countdown"></div>
