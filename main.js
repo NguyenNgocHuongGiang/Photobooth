@@ -8,6 +8,8 @@ const photoSlots = document.querySelectorAll(".photo-slot");
 const container = document.getElementById("container");
 const videoSection = document.getElementById("video-section");
 const downloadBtn = document.getElementById("download-pdf");
+const colorPicker = document.getElementById("colorPicker");
+const bgImageOptions = document.querySelectorAll(".bg-thumbnail");
 
 async function startWebcam() {
   try {
@@ -26,12 +28,10 @@ function takePhoto() {
   return canvas.toDataURL("image/png");
 }
 
-function countdown(seconds, onTick, onDone) {
+function countdown(seconds, onDone) {
   let count = seconds;
-  onTick(count);
   const timer = setInterval(() => {
     count--;
-    if (count >= 0) onTick(count);
     if (count === 0) {
       clearInterval(timer);
       onDone();
@@ -55,36 +55,38 @@ function startShooting() {
       return;
     }
 
-    countdown(
-      1,
-      (sec) => {
-        countdownEl.textContent = `Ảnh ${index + 1} - ${sec}s...`;
-      },
-      () => {
-        const dataUrl = takePhoto();
-        const img = document.createElement("img");
-        img.src = dataUrl;
+    countdown(1, () => {
+      flashEffect(); // Hiệu ứng flash khi chụp
+      const dataUrl = takePhoto();
+      const img = document.createElement("img");
+      img.src = dataUrl;
 
-        img.addEventListener("click", () => {
-          assignToSlot(dataUrl);
-        });
+      img.addEventListener("click", () => {
+        assignToSlot(dataUrl);
+      });
 
-        capturedPhotos.appendChild(img);
-        capturedPhotoFirst.appendChild(img.cloneNode(true));
-        index++;
-        shootNext();
-      }
-    );
+      capturedPhotos.appendChild(img);
+      capturedPhotoFirst.appendChild(img.cloneNode(true));
+      index++;
+      shootNext();
+    });
   }
 
   shootNext();
 }
 
 function finishShooting() {
-  countdownEl.textContent = "Đã chụp xong!";
   videoSection.style.display = "none";
   container.style.display = "flex";
   downloadBtn.style.display = "block";
+}
+
+function flashEffect() {
+  const flash = document.getElementById("flash-effect");
+  flash.style.opacity = 0.8; // bật nháy
+  setTimeout(() => {
+    flash.style.opacity = 0; // tắt nháy dần
+  }, 200); // thời gian nháy 200ms
 }
 
 function assignToSlot(dataUrl) {
@@ -106,25 +108,21 @@ function assignToSlot(dataUrl) {
   }
 }
 
-
-const colorPicker = document.getElementById('colorPicker');
-const bgImageOptions = document.querySelectorAll('.bg-thumbnail');
-
 // Đổi màu nền khi chọn màu
-colorPicker.addEventListener('input', (e) => {
+colorPicker.addEventListener("input", (e) => {
   const color = e.target.value;
-  document.getElementById('selected-photos').style.background = color;
-  document.getElementById('selected-photos').style.backgroundImage = 'none'; // Xóa ảnh nếu có
+  document.getElementById("selected-photos").style.background = color;
+  document.getElementById("selected-photos").style.backgroundImage = "none"; // Xóa ảnh nếu có
 });
 
 // Đổi ảnh nền khi click ảnh có sẵn
-bgImageOptions.forEach(img => {
-  img.addEventListener('click', () => {
+bgImageOptions.forEach((img) => {
+  img.addEventListener("click", () => {
     const imageUrl = img.src;
-    const selectedPhotos = document.getElementById('selected-photos');
+    const selectedPhotos = document.getElementById("selected-photos");
     selectedPhotos.style.backgroundImage = `url(${imageUrl})`;
-    selectedPhotos.style.backgroundSize = 'cover';
-    selectedPhotos.style.backgroundPosition = 'center';
+    selectedPhotos.style.backgroundSize = "cover";
+    selectedPhotos.style.backgroundPosition = "center";
   });
 });
 
@@ -138,12 +136,19 @@ document.getElementById("download-pdf").addEventListener("click", async () => {
     const dataUrl = await domtoimage.toPng(selectedPhotos);
 
     const pdf = new jspdf.jsPDF({
-      orientation: 'portrait',
-      unit: 'px',
+      orientation: "portrait",
+      unit: "px",
       format: [selectedPhotos.offsetWidth, selectedPhotos.offsetHeight],
     });
 
-    pdf.addImage(dataUrl, 'PNG', 0, 0, selectedPhotos.offsetWidth, selectedPhotos.offsetHeight);
+    pdf.addImage(
+      dataUrl,
+      "PNG",
+      0,
+      0,
+      selectedPhotos.offsetWidth,
+      selectedPhotos.offsetHeight
+    );
     pdf.save("photobooth.pdf");
   } catch (error) {
     alert("Lỗi khi tạo ảnh: " + error);
@@ -163,7 +168,6 @@ document.addEventListener("DOMContentLoaded", () => {
     videoSection.style.display = "flex"; // hoặc "block" tùy bố cục
   });
 });
-
 
 startBtn.addEventListener("click", startShooting);
 startWebcam();

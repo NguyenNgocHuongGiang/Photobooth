@@ -6,17 +6,45 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-  <div id="welcome-screen">
-    <h1>Chào mừng đến với Photobooth</h1>
-    <p>Chúng tôi sẽ giúp bạn chụp những khoảnh khắc đẹp nhất.</p>
-    <button id="welcome-start-btn">Bắt đầu</button>
-  </div>
+    <div id="welcome-screen">
+      <h1>Welcome to Photobooth</h1>
+      <p>We will help you capture your best moments.</p>
+      <div>
+        <p>
+          Press the "Start" button to begin the photo-taking process. You will
+          have 3 seconds to get ready before the camera starts shooting.
+        </p>
+        <p>
+          After taking photos, you can select your 6 favorite pictures and
+          customize their backgrounds.
+        </p>
+      </div>
+
+      <button id="welcome-start-btn" style="margin-top: 2rem">Ready</button>
+    </div>
 
     <div id="video-section" style="display: none">
       <div>
-        <video id="video" autoplay playsinline></video>
+        <div>
+          <video id="video" autoplay playsinline></video>
+          <div
+            id="flash-effect"
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background: white;
+              opacity: 0;
+              pointer-events: none;
+              transition: opacity 0.3s ease;
+              z-index: 10;
+            "
+          ></div>
+        </div>
         <div id="countdown"></div>
-        <button id="start-btn">Bắt đầu chụp</button>
+        <button id="start-btn">Start</button>
       </div>
       <div id="captured-photos-first"></div>
     </div>
